@@ -5,6 +5,26 @@
     {
       "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\draw_square.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:draw_square.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\fragment_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:fragment_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\vertex_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:vertex_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|C:\\Dev\\2d-physics-engine\\shaders.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F907F815-1B18-43E8-9251-62D3176D0DCD}|2d-physics-engine.vcxproj|solutionrelative:shaders.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +34,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "glad.c",
+              "DocumentMoniker": "C:\\Dev\\2d-physics-engine\\glad.c",
+              "RelativeDocumentMoniker": "glad.c",
+              "ToolTip": "C:\\Dev\\2d-physics-engine\\glad.c",
+              "RelativeToolTip": "glad.c",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-05T02:56:44.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "draw_square.h",
+              "DocumentMoniker": "C:\\Dev\\2d-physics-engine\\draw_square.h",
+              "RelativeDocumentMoniker": "draw_square.h",
+              "ToolTip": "C:\\Dev\\2d-physics-engine\\draw_square.h",
+              "RelativeToolTip": "draw_square.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-05T02:55:25.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "shaders.h",
+              "DocumentMoniker": "C:\\Dev\\2d-physics-engine\\shaders.h",
+              "RelativeDocumentMoniker": "shaders.h",
+              "ToolTip": "C:\\Dev\\2d-physics-engine\\shaders.h",
+              "RelativeToolTip": "shaders.h",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAAC8AAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-05T02:55:08.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "fragment_shader.glsl",
+              "DocumentMoniker": "C:\\Dev\\2d-physics-engine\\fragment_shader.glsl",
+              "RelativeDocumentMoniker": "fragment_shader.glsl",
+              "ToolTip": "C:\\Dev\\2d-physics-engine\\fragment_shader.glsl",
+              "RelativeToolTip": "fragment_shader.glsl",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T02:54:48.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "vertex_shader.glsl",
+              "DocumentMoniker": "C:\\Dev\\2d-physics-engine\\vertex_shader.glsl",
+              "RelativeDocumentMoniker": "vertex_shader.glsl",
+              "ToolTip": "C:\\Dev\\2d-physics-engine\\vertex_shader.glsl",
+              "RelativeToolTip": "vertex_shader.glsl",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T02:54:32.639Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -28,7 +113,7 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Dev\\2d-physics-engine\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAwwDwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-03T23:32:52.345Z",
               "EditorCaption": ""
