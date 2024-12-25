@@ -6,63 +6,68 @@
 #include <string>
 #include <vector>
 
+#include "collision.hpp"
+
 class Body {
 
-    public:
+public:
 
-        Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type, bool isDynamic);
+    Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type, bool isDynamic);
 
-        virtual ~Body() = default;
+    virtual ~Body() = default;
 
-        virtual void update(std::vector<Body*> bodies, float gravity) = 0;
+    virtual void update(std::vector<Body*> bodies, float gravity) = 0;
 
-        std::string type;
+    std::string type;
 
-        float positionX;
-        float positionY;
-        float sizeX;
-        float sizeY;
+    float positionX;
+    float positionY;
+    float sizeX;
+    float sizeY;
 
-        float mass;
+    float mass;
 
-        float gravity;
+    float gravity;
 
-        float forceX;
-        float forceY;
+    float forceX;
+    float forceY;
 
-        bool isDynamic;
-        bool isCollidingLeft;
-        bool isCollidingRight;
-        bool isCollidingTop;
-        bool isCollidingBottom;
+    bool isDynamic;
+    bool isCollidingLeft;
+    bool isCollidingRight;
+    bool isCollidingTop;
+    bool isCollidingBottom;
 
 };
 
 class Box : public Body {
 
-    public:
+public:
 
-        Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic);
-        ~Box() override;
+    Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic);
+    ~Box() override;
 
-        void update(std::vector<Body*> bodies, float gravity);
+    void update(std::vector<Body*> bodies, float gravity);
 
-        void applyForce(float x, float y);
+    void applyForce(float x, float y);
 
+private:
+
+    void checkCollision(Box* box1, Body* box2, Rect rect1, Rect rect2);
 };
 
 class Circle : public Body {
 
-    public:
+public:
 
-        Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity, bool isDynamic);
-        ~Circle() override;
+    Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity, bool isDynamic);
+    ~Circle() override;
 
-        void update(std::vector<Body*> bodies, float gravity);
+    void update(std::vector<Body*> bodies, float gravity);
 
-    private:
+private:
 
-        float radius;
+    float radius;
 };
 
 #endif

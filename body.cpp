@@ -1,6 +1,5 @@
 #include <vector>
 #include "body.hpp"
-#include "collision.hpp"
 #include <iostream>
 
 Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type, bool isDynamic)
@@ -18,7 +17,8 @@ Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mas
     isCollidingBottom(false),
     forceX(0),
     forceY(0)
-{}
+{
+}
 
 Box::Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic)
     : Body(positionX, positionY, sizeX, sizeY, mass, gravity, "Box", isDynamic) {
@@ -27,6 +27,29 @@ Box::Box(float positionX, float positionY, float sizeX, float sizeY, float mass,
 }
 
 Box::~Box() {}
+
+void Box::checkCollision(Box* box1, Body* box2, Rect rect1, Rect rect2) {
+
+    box1->positionX += box1->forceX;
+
+    rect1 = {
+        box1->positionX,
+        box1->positionY,
+        box1->sizeX,
+        box1->sizeY
+    };
+
+    box1->isCollidingLeft = boxCollideLeftBox(rect1, rect2);
+    box1->isCollidingRight = boxCollideRightBox(rect1, rect2);
+
+    if (box1->isCollidingLeft || box1->isCollidingRight) {
+
+        box2->forceX += box1->forceX;
+
+        box1->forceX = 0;
+
+    }
+}
 
 void Box::update(std::vector<Body*> bodies, float gravity) {
 
@@ -67,25 +90,7 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
 
                     if (!this->isCollidingLeft || !this->isCollidingRight) {
 
-                        this->positionX += this->forceX;
-
-                        rect1 = {
-                            this->positionX,
-                            this->positionY,
-                            this->sizeX,
-                            this->sizeY
-                        };
-
-                        this->isCollidingLeft = boxCollideLeftBox(rect1, rect2);
-                        this->isCollidingRight = boxCollideRightBox(rect1, rect2);
-
-                        if (this->isCollidingLeft || this->isCollidingRight) {
-
-                            body->forceX += this->forceX;
-
-                            this->forceX = 0;
-
-                        }
+                        checkCollision(this, body, rect1, rect2);
                     }
 
                     if (!this->isCollidingBottom) {
@@ -107,7 +112,8 @@ void Box::applyForce(float x, float y) {
 }
 
 Circle::Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity, bool isDynamic)
-    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle", isDynamic), radius(radius) {}
+    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle", isDynamic), radius(radius) {
+}
 
 Circle::~Circle() {}
 
