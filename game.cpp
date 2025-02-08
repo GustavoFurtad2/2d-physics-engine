@@ -37,22 +37,36 @@ void Game::update() {
 	world.update();
 }
 
-void Game::drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, SDL_Color color) {
+void Game::drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, int sides, SDL_Color color) {
+
+	if (sides < 3) {
+		sides = 3;
+	}
 
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
-	for (int y = -radius; y <= radius; y++) {
+	const float PI = 3.14159265f;
+	float angleStep = 2 * PI / sides;
 
-		for (int x = -radius; x <= radius; x++) {
+	int prevX = centerX + radius * cos(0);
+	int prevY = centerY + radius * sin(0);
 
-			if (x * x + y * y <= radius * radius) {
-				SDL_RenderDrawPoint(renderer, centerX + x, centerY + y);
-			}
-		}
+	for (int i = 1; i <= sides; i++) {
+
+		float angle = i * angleStep;
+
+		int nextX = centerX + radius * cos(angle);
+		int nextY = centerY + radius * sin(angle);
+
+		SDL_RenderDrawLine(renderer, prevX, prevY, nextX, nextY);
+
+		prevX = nextX;
+		prevY = nextY;
 	}
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }
+
 
 void Game::render() {
 
@@ -75,7 +89,7 @@ void Game::render() {
 		}
 		else if (body->type == "Circle") {
 
-			drawCircle(renderer, body->positionX, body->positionY, body->radius, {255, 0, 0, 255});
+			drawCircle(renderer, body->positionX, body->positionY, body->radius, 50, {255, 0, 0, 255});
 		}
 	}
 

@@ -29,7 +29,7 @@ class Game {
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 
-		void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, SDL_Color color);
+		void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, int sides, SDL_Color color);
 
 };
 
