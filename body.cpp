@@ -135,7 +135,47 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
 
             if (body != this) {
 
-                if (body->type == "Circle") {
+                if (body->type == "Box") {
+
+                    float closestX = std::max(body->positionX, std::min(this->positionX, body->positionX + body->sizeX));
+                    float closestY = std::max(body->positionY, std::min(this->positionY, body->positionY + body->sizeY));
+
+                    float dx = this->positionX - closestX;
+                    float dy = this->positionY - closestY;
+                    float distance = sqrt(dx * dx + dy * dy);
+
+                    if (distance < this->radius) {
+
+                        float overlap = this->radius - distance;
+
+                        float nx = dx / distance;
+                        float ny = dy / distance;
+
+                        this->positionX += nx * overlap;
+                        this->positionY += ny * overlap;
+
+                        if (ny > 0) {
+                            this->isCollidingTop = true;
+                        }
+                        if (ny < 0) {
+                            this->isCollidingBottom = true;
+                        }
+                        if (nx > 0) {
+                            this->isCollidingLeft = true;
+                        }
+                        if (nx < 0) {
+                            this->isCollidingRight = true;
+                        }
+
+                        if (this->isCollidingTop || this->isCollidingBottom) {
+                            this->forceY = 0;
+                        }
+                        if (this->isCollidingLeft || this->isCollidingRight) {
+                            this->forceX = 0;
+                        }
+                    }
+                }
+                else if (body->type == "Circle") {
 
                     float dx = this->positionX - body->positionX;
                     float dy = this->positionY - body->positionY;

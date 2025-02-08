@@ -20,7 +20,9 @@ Game::Game() : world(9.8f) {
 		world.createBox(0.0f, 500.f, 800.f, 100.f, 1.0f, world.gravity, false);
 		*/
 
-		world.createCircle(100.0f, 100.0f, 50.0f, 1.0f, world.gravity, true);
+		world.createCircle(130.0f, 100.0f, 50.0f, 1.0f, world.gravity, true);
+		world.createCircle(530.0f, 400.0f, 50.0f, 1.0f, world.gravity, true);
+
 		//world.createBox(100.0f, 100.f, 50.f, 50.f, 1.0f, world.gravity, true);
 
 		world.createBox(0.0f, 500.f, 800.f, 100.f, 1.0f, world.gravity, false);
