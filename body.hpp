@@ -22,6 +22,8 @@ class Body {
         float positionY;
         float sizeX;
         float sizeY;
+        
+        float radius;
 
         float mass;
 
@@ -60,9 +62,8 @@ class Circle : public Body {
 
         void update(std::vector<Body*> bodies, float gravity);
 
-    private:
+        void applyForce(float x, float y);
 
-        float radius;
 };
 
 #endif

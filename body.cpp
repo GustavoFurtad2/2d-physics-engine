@@ -2,12 +2,14 @@
 #include "body.hpp"
 #include "collision.hpp"
 #include <iostream>
+#include <cmath>
 
 Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type, bool isDynamic)
-    : positionX(positionX),
+  : positionX(positionX),
     positionY(positionY),
     sizeX(sizeX),
     sizeY(sizeY),
+    radius(0),
     mass(mass),
     gravity(gravity),
     type(type),
@@ -17,8 +19,7 @@ Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mas
     isCollidingTop(false),
     isCollidingBottom(false),
     forceX(0),
-    forceY(0)
-{}
+    forceY(0) {}
 
 Box::Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic)
     : Body(positionX, positionY, sizeX, sizeY, mass, gravity, "Box", isDynamic) {
@@ -107,10 +108,51 @@ void Box::applyForce(float x, float y) {
 }
 
 Circle::Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity, bool isDynamic)
-    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle", isDynamic), radius(radius) {}
+    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle", isDynamic) {
+
+    this->radius = radius;
+    applyForce(0, this->gravity);
+}
 
 Circle::~Circle() {}
 
+void Circle::applyForce(float x, float y) {
+
+    this->forceX += (this->mass * x) / 100;
+    this->forceY += (this->mass * y) / 100;
+}
+
 void Circle::update(std::vector<Body*> bodies, float gravity) {
 
+    if (this->isDynamic) {
+
+        this->isCollidingLeft = false;
+        this->isCollidingRight = false;
+        this->isCollidingTop = false;
+        this->isCollidingBottom = false;
+
+        for (Body* body : bodies) {
+
+            if (body != this) {
+
+                if (body->type == "Circle") {
+
+                    float dx = this->positionX - body->positionX;
+                    float dy = this->positionY - body->positionY;
+                    float distance = sqrt(dx * dx + dy * dy);
+                    float sumRadius = this->radius + body->radius;
+
+                    if (distance < sumRadius) {
+
+                        float overlap = sumRadius - distance;
+
+                        this->positionX += (dx / distance) * overlap;
+                        this->positionY += (dy / distance) * overlap;
+
+                        this->forceY = 0;
+                    }
+                }
+            }
+        }
+    }
 }
