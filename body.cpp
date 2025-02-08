@@ -80,6 +80,13 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
                         this->isCollidingLeft = boxCollideLeftBox(rect1, rect2);
                         this->isCollidingRight = boxCollideRightBox(rect1, rect2);
 
+                        if (this->isCollidingBottom || this->isCollidingTop) {
+
+                            this->forceY = 0;
+
+                            continue;
+                        }
+
                         if (this->isCollidingLeft || this->isCollidingRight) {
 
                             float impulse = this->forceX / body->mass;
@@ -93,8 +100,11 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
             }
         }
 
-        if (!this->isCollidingBottom) {
+        if (!this->isCollidingBottom && this->forceY != 0) {
             this->positionY += this->forceY;
+        }
+        else if (!this->isCollidingBottom && this->forceY == 0) {
+            applyForce(0, this->gravity);
         }
         else {
             this->forceY = 0;
@@ -204,6 +214,10 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
         }
 
         if (!this->isCollidingBottom) {
+
+            if (this->forceY == 0) {
+                applyForce(0, this->gravity);
+            }
             this->positionY += this->forceY;
         }
         else {
