@@ -88,15 +88,15 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
 
                         }
                     }
-
-                    if (!this->isCollidingBottom) {
-                        this->positionY += this->forceY;
-                    }
-                    else {
-                        this->forceY = 0;
-                    }
                 }
             }
+        }
+
+        if (!this->isCollidingBottom) {
+            this->positionY += this->forceY;
+        }
+        else {
+            this->forceY = 0;
         }
     }
 }
@@ -153,6 +153,13 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
                     }
                 }
             }
+        }
+
+        if (!this->isCollidingBottom) {
+            this->positionY += this->forceY;
+        }
+        else {
+            this->forceY = 0;
         }
     }
 }
