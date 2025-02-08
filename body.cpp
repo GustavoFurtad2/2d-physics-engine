@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type, bool isDynamic)
+Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, std::string type)
   : positionX(positionX),
     positionY(positionY),
     sizeX(sizeX),
@@ -13,7 +13,6 @@ Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mas
     mass(mass),
     gravity(gravity),
     type(type),
-    isDynamic(isDynamic),
     isCollidingLeft(false),
     isCollidingRight(false),
     isCollidingTop(false),
@@ -21,8 +20,8 @@ Body::Body(float positionX, float positionY, float sizeX, float sizeY, float mas
     forceX(0),
     forceY(0) {}
 
-Box::Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic)
-    : Body(positionX, positionY, sizeX, sizeY, mass, gravity, "Box", isDynamic) {
+Box::Box(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity)
+    : Body(positionX, positionY, sizeX, sizeY, mass, gravity, "Box") {
 
     applyForce(0, this->gravity);
 }
@@ -118,8 +117,8 @@ void Box::applyForce(float x, float y) {
     this->forceY += (this->mass * y) / 100;
 }
 
-Circle::Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity, bool isDynamic)
-    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle", isDynamic) {
+Circle::Circle(float positionX, float positionY, float sizeX, float sizeY, float radius, float mass, float gravity)
+    : Body(positionX, positionY, radius * 2, radius * 2, mass, gravity, "Circle") {
 
     this->radius = radius;
     applyForce(0, this->gravity);

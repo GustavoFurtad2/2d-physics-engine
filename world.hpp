@@ -15,8 +15,8 @@ class World {
 
 		void update();
 
-		Box* createBox(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic);
-		Circle* createCircle(float positionX, float positionY, float radius, float mass, float gravity, bool isDynamic);
+		Box* createBox(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity);
+		Circle* createCircle(float positionX, float positionY, float radius, float mass, float gravity);
 
 		std::vector<Body*> bodies;
 

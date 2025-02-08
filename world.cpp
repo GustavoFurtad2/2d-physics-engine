@@ -19,18 +19,18 @@ void World::update() {
     }
 }
 
-Box* World::createBox(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity, bool isDynamic) {
+Box* World::createBox(float positionX, float positionY, float sizeX, float sizeY, float mass, float gravity) {
 
-    Box* box = new Box(positionX, positionY, sizeX, sizeY, mass, gravity, isDynamic);
+    Box* box = new Box(positionX, positionY, sizeX, sizeY, mass, gravity);
 
     bodies.push_back(box);
 
     return box;
 }
 
-Circle* World::createCircle(float positionX, float positionY, float radius, float mass, float gravity, bool isDynamic) {
+Circle* World::createCircle(float positionX, float positionY, float radius, float mass, float gravity) {
 
-    Circle* circle = new Circle(positionX, positionY, radius * 2, radius * 2, radius, mass, gravity, isDynamic);
+    Circle* circle = new Circle(positionX, positionY, radius * 2, radius * 2, radius, mass, gravity);
 
     bodies.push_back(circle);
 
