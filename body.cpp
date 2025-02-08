@@ -38,6 +38,8 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
         this->isCollidingTop = false;
         this->isCollidingBottom = false;
 
+        this->positionX += this->forceX;
+
         for (Body* body : bodies) {
 
             if (body != this) {
@@ -80,19 +82,15 @@ void Box::update(std::vector<Body*> bodies, float gravity) {
 
                         if (this->isCollidingLeft || this->isCollidingRight) {
 
-                            body->forceX += this->forceX;
+                            float impulse = this->forceX / body->mass;
 
-                            this->forceX = 0;
+                            body->forceX += impulse;
 
+                            this->forceX -= impulse;
                         }
                     }
                 }
             }
-        }
-
-        if (!this->isCollidingLeft || !this->isCollidingRight) {
-
-            this->positionX += this->forceX;
         }
 
         if (!this->isCollidingBottom) {
@@ -134,6 +132,8 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
         this->isCollidingTop = false;
         this->isCollidingBottom = false;
 
+        this->positionX += this->forceX;
+
         for (Body* body : bodies) {
 
             if (body != this) {
@@ -174,7 +174,12 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
                             this->forceY = 0;
                         }
                         if (this->isCollidingLeft || this->isCollidingRight) {
-                            this->forceX = 0;
+
+                            float impulse = this->forceX / body->mass;
+
+                            body->forceX += impulse;
+
+                            this->forceX -= impulse / 2;
                         }
                     }
                 }
@@ -196,11 +201,6 @@ void Circle::update(std::vector<Body*> bodies, float gravity) {
                     }
                 }
             }
-        }
-
-        if (!this->isCollidingLeft || !this->isCollidingRight) {
-
-            this->positionX += this->forceX;
         }
 
         if (!this->isCollidingBottom) {
