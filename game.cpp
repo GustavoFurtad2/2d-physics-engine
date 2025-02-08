@@ -12,25 +12,20 @@ Game::Game() : world(9.8f) {
 
 		SDL_SetRenderDrawColor(renderer, 0, 166, 255, 255);
 
-		/*
-		world.createBox(110.0f, 200.f, 100.f, 100.f, 1.0f, world.gravity, true)->applyForce(2, 0);
-
-		world.createBox(400.0f, 400.f, 100.f, 100.f, 1.0f, world.gravity, true);
-
-		world.createBox(0.0f, 500.f, 800.f, 100.f, 1.0f, world.gravity, false);
-		*/
-
-		//world.createCircle(130.0f, 100.0f, 50.0f, 1.0f, world.gravity, true);
-		//world.createCircle(530.0f, 400.0f, 50.0f, 1.0f, world.gravity, true);
-
-		world.createCircle(100.0f, 200.0f, 50.0f, 1.0f, world.gravity, true)->applyForce(10, 0);
-		world.createBox(100.0f, 100.f, 50.f, 50.f, 1.0f, world.gravity, true)->applyForce(2, 0);
-		world.createCircle(400.0f, 150.0f, 50.0f, 1.0f, world.gravity, true)->applyForce(-4, 0);
-		world.createBox(300.0f, 160.f, 50.f, 50.f, 1.0f, world.gravity, true)->applyForce(-5, 0);
-
-		world.createBox(0.0f, 500.f, 800.f, 100.f, 1.0f, world.gravity, false);
-
+		world.createBox(0.0f, 500.f, 800.f, 100.f, 1.0f, world.gravity);
 	}
+}
+
+void Game::createStone() {
+
+	this->currentStone = world.createCircle(105.0f, 350.0f, 20.0f, 1.0f, world.gravity);
+}
+
+void Game::updateStone(int x, int y) {
+
+	this->currentStone->positionX = x;
+	this->currentStone->positionY = y;
+
 }
 
 Game::~Game() {
@@ -40,6 +35,52 @@ Game::~Game() {
 void Game::update() {
 
 	world.update();
+}
+
+void Game::drawSlingshot(SDL_Renderer* renderer) {
+
+	SDL_SetRenderDrawColor(renderer, 153, 94, 0, 255);
+
+	SDL_Rect rect {
+		100.0f,
+		400.0f,
+		10.0f,
+		100.0f
+	};
+
+	SDL_RenderFillRect(renderer, &rect);
+
+	rect.x = 75.0f;
+	rect.y = 390.0f;
+	rect.w = 60.0f;
+	rect.h = 10.0f;
+
+	SDL_RenderFillRect(renderer, &rect);
+
+	rect.x = 65.0f;
+	rect.y = 350.0f;
+	rect.w = 10.0f;
+	rect.h = 50.0f;
+
+	SDL_RenderFillRect(renderer, &rect);
+
+	rect.x = 135.0f;
+	rect.y = 350.0f;
+	rect.w = 10.0f;
+	rect.h = 50.0f;
+
+	SDL_RenderFillRect(renderer, &rect);
+
+	if (currentStone) {
+		SDL_RenderDrawLine(renderer, 105, 345, this->currentStone->positionX, this->currentStone->positionY);
+		SDL_RenderDrawLine(renderer, 105, 355, this->currentStone->positionX, this->currentStone->positionY);
+	}
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+}
+
+double Game::degressToRadians(double degress) {
+	return degress * 3.14 / 180.0;
 }
 
 void Game::drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, int sides, SDL_Color color) {
@@ -98,6 +139,8 @@ void Game::render() {
 		}
 	}
 
+	drawSlingshot(renderer);
+
 	SDL_SetRenderDrawColor(renderer, 0, 166, 255, 255);
 
 	SDL_RenderPresent(renderer);
@@ -119,5 +162,85 @@ void Game::handleEvents() {
 	if (event.type == SDL_QUIT) {
 
 		running = false;
+	}
+	else if (event.type == SDL_MOUSEBUTTONDOWN) {
+
+		if (event.button.button == SDL_BUTTON_LEFT) {
+
+			isAiming = true;
+
+			int x, y;
+			int centerX = 105.0f;
+			int centerY = 350.0f;
+
+			SDL_GetMouseState(&x, &y);
+
+			int deltaX = x - centerX;
+			int deltaY = y - centerY;
+
+			float distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+			if (distance <= 50.0f) {
+
+				if (this->currentStone == nullptr) {
+					createStone();
+				}
+			}
+			else {
+				world.createBox(x, y, 50.f, 50.f, 1.0f, world.gravity)->setDynamic(true);
+			}
+		}
+	}
+	else if (event.type == SDL_MOUSEBUTTONUP) {
+
+		if (event.button.button == SDL_BUTTON_LEFT) { 
+
+			if (isAiming) {
+				isAiming = false;
+			}
+
+			int x, y;
+			int centerX = 105.0f;
+			int centerY = 350.0f;
+
+			SDL_GetMouseState(&x, &y);
+
+			int deltaX = x - centerX;
+			int deltaY = y - centerY;
+			float distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+			float maxDistance = 50.0f;
+			float forceMagnitude = std::min(distance, maxDistance);
+
+			float directionX = -deltaX / distance;
+			float directionY = -deltaY / distance;
+
+			float forceX = (directionX * forceMagnitude) / 3;
+			float forceY = (directionY * forceMagnitude) / 3;
+
+			if (currentStone) {
+				currentStone->setDynamic(true);
+				currentStone->applyForce(forceX, forceY);
+				currentStone = nullptr;
+				isAiming = false;
+			}
+		}
+	}
+
+	if (isAiming) {
+
+		int x, y;
+		int centerX = 105.0f;
+		int centerY = 350.0f;
+
+		SDL_GetMouseState(&x, &y);
+
+		int deltaX = x - centerX;
+		int deltaY = y - centerY;
+		float distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+		if (distance <= 50.0f) {
+			updateStone(x, y);
+		}
 	}
 }
